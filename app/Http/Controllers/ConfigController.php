@@ -13,13 +13,22 @@ class ConfigController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
+    {
         /** */
         $configs = Config::all();
-        return view('config.index')->with(compact('configs'));
+
+         $admobenable= Config::where('title','admobenable')->get()->first()->value;
+         $admobappid= Config::where('title','admobappid')->get()->first()->value;
+         $admobbanner= Config::where('title','admobbanner')->get()->first()->value;
+         $admobinter= Config::where('title','admobinter')->get()->first()->value;
+
+
+
+
+        return view('config.index')->with(compact(['admobenable','admobappid','admobbanner','admobinter']));
     }
     public function index2()
-    {        
+    {
         /** */
         $configs = Config::all();
         return view('config.index2')->with(compact('configs'));
@@ -32,7 +41,7 @@ class ConfigController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {        
+    {
         return view('config.create');
     }
 
@@ -44,12 +53,26 @@ class ConfigController extends Controller
      */
     public function store(Request $request)
     {
+        if (isset($request->admobenable)) {
+            $config = Config::where('title','admobenable')
+            ->update(['value' => '1']);
+        }
 
-        $request->validate([ 
-            'title' => 'required',            
-        ]);
+        else{
+            $config = Config::where('title','admobenable')
+            ->update(['value' => '0']);
+        }
 
-        Config::create($request->all());
+        $config = Config::where('title','admobappid')
+        ->update(['value' => $request->admobappid]);
+        $config = Config::where('title','admobbanner')
+        ->update(['value' => $request->admobbanner]);
+        $config = Config::where('title','admobinter')
+        ->update(['value' => $request->admobinter]);
+
+
+
+
         return redirect()->route('config.index')
                         ->with('success','Config created successfully.');
     }
@@ -89,9 +112,9 @@ class ConfigController extends Controller
             'id' => 'required',
             'title' => 'required',
         ]);
- 
+
         $config->update($request->all());
- 
+
         return redirect()->route('config.index')
                         ->with('success','config updated successfully');
     }
@@ -105,7 +128,7 @@ class ConfigController extends Controller
     public function destroy(Config $config)
     {
         $config->delete();
- 
+
         return redirect()->route('config.index')
                         ->with('success','config deleted successfully');
     }
