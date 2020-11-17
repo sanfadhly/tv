@@ -16,24 +16,17 @@ class ConfigController extends Controller
     {
         /** */
         $configs = Config::all();
-
          $admobenable= Config::where('title','admobenable')->get()->first()->value;
          $admobappid= Config::where('title','admobappid')->get()->first()->value;
          $admobbanner= Config::where('title','admobbanner')->get()->first()->value;
          $admobinter= Config::where('title','admobinter')->get()->first()->value;
+         $fanenable= Config::where('title','fanenable')->get()->first()->value;
+         $fanappid= Config::where('title','fanappid')->get()->first()->value;
+         $fanbanner= Config::where('title','fanbanner')->get()->first()->value;
+         $faninter= Config::where('title','faninter')->get()->first()->value;
 
-
-
-
-        return view('config.index')->with(compact(['admobenable','admobappid','admobbanner','admobinter']));
+        return view('config.index')->with(compact(['admobenable','admobappid','admobbanner','admobinter','fanenable','fanappid','fanbanner','faninter']));
     }
-    public function index2()
-    {
-        /** */
-        $configs = Config::all();
-        return view('config.index2')->with(compact('configs'));
-    }
-
 
     /**
      * Show the form for creating a new resource.
@@ -57,7 +50,6 @@ class ConfigController extends Controller
             $config = Config::where('title','admobenable')
             ->update(['value' => '1']);
         }
-
         else{
             $config = Config::where('title','admobenable')
             ->update(['value' => '0']);
@@ -70,7 +62,21 @@ class ConfigController extends Controller
         $config = Config::where('title','admobinter')
         ->update(['value' => $request->admobinter]);
 
+        if (isset($request->fanenable)) {
+            $config = Config::where('title','fanenable')
+            ->update(['value' => '1']);
+        }
+        else{
+            $config = Config::where('title','fanenable')
+            ->update(['value' => '0']);
+        }
 
+        $config = Config::where('title','fanappid')
+        ->update(['value' => $request->fanappid]);
+        $config = Config::where('title','fanbanner')
+        ->update(['value' => $request->fanbanner]);
+        $config = Config::where('title','faninter')
+        ->update(['value' => $request->faninter]);
 
 
         return redirect()->route('config.index')
