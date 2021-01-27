@@ -9,12 +9,12 @@ class Chanel extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id', 'link', 'chanel', 'kategori', 'foto'
+        'id', 'description', 'chanel', 'id_category', 'img'
     ];
     
     public function setFotoAttribute($value)
     {
-        $this->attributes['foto'] =time().$value->getClientOriginalName();
+        $this->attributes['image'] =time().$value->getClientOriginalName();
 
     }
 }

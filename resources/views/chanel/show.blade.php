@@ -10,10 +10,9 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">	
-				  
 <form class="form-horizontal" action="{{ route('chanel.update', $chanel->id) }}" enctype="multipart/form-data" method="POST">
 @csrf             	
-@method('PUT')
+@method('GET')
 	<div class="form-group row">
 		<label class="col-sm-4 col-form-label">Nama Chanel</label>
 			<div class="col-sm-8">			

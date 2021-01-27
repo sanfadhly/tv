@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChanelController;
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\CategoryController;
 //use App\Http\Controllers\SettingController;
 
 /*
@@ -19,7 +20,11 @@ Route::get('/', function () {
 });
 
 */
-
+Route::get('/', function () {
+    return view('/login');
+});
 Route::resource('chanel', ChanelController::class);
+Route::resource('category', CategoryController::class);
 Route::resource('config', ConfigController::class);
+Route::post('logged_in', [LoginController::class, 'authenticate']);
 

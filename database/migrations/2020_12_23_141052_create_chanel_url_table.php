@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTv extends Migration
+class CreateChanelUrlTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateTv extends Migration
      */
     public function up()
     {
-        Schema::create('chanels', function (Blueprint $table) {
+        Schema::create('chanel_urls', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_category');
-            $table->string('chanel');
-            $table->string('description');
-            $table->string('img');            
-            $table->timestamps();
-        }); 
+            $table->integer('id_chanel');
+            $table->string('source');
+            $table->string('url');                        
+        });
     }
 
     /**
@@ -30,6 +28,6 @@ class CreateTv extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chanel');
+        Schema::dropIfExists('chanel_url');
     }
 }
